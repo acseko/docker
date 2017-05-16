@@ -9,7 +9,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 RUN \
    apt-get update \
 && apt-get upgrade -y \
-&& apt-get install -y software-properties-common
+&& apt-get install -y software-properties-common apt-utils
 
 #Adding Java 8
 RUN \
@@ -17,7 +17,7 @@ RUN \
 && add-apt-repository -y ppa:webupd8team/java \
 && apt-get update \
 && apt-get install -y oracle-java8-installer  oracle-java8-set-default oracle-java8-unlimited-jce-policy \
-&& rm -rf /var/lib/apt/lists/* \
+#&& rm -rf /var/lib/apt/lists/* \
 && rm -rf /var/cache/oracle-jdk8-installer
 
 ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
@@ -43,7 +43,10 @@ ENV LD_LIBRARY_PATH ${LD_LIBRARY_PATH:+$LD_LIBRARY_PATH:}$TOMCAT_NATIVE_LIBDIR
 # see http://tomcat.10.x6.nabble.com/VOTE-Release-Apache-Tomcat-8-0-32-tp5046007p5046024.html (and following discussion)
 # and https://github.com/docker-library/tomcat/pull/31
 
-RUN apt-get install -y --no-install-recommends libapr1 openssl
+RUN \
+   echo Installing Tomcat Native Library \
+# && apt-get update \
+&& apt-get install -y --no-install-recommends libapr1 openssl
 
 # see https://www.apache.org/dist/tomcat/tomcat-$TOMCAT_MAJOR/KEYS
 # see also "update.sh" (https://github.com/docker-library/tomcat/blob/master/update.sh)
