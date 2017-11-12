@@ -1,8 +1,8 @@
 FROM ubuntu:latest
 
-MAINTAINER Andras Cseko <andras.cseko@]mail.com>
+MAINTAINER Andras Cseko <andras.cseko@gmail.com>
 
-LABEL Description="Sample image for exercise docker images" Vendor="acseko" Version="1.0"
+LABEL Description="Tomcat 8.0 image" Vendor="acseko" Version="1.0"
 
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -25,7 +25,7 @@ ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
 
 #Adding tomcat 
 ENV TOMCAT_MAJOR 8
-ENV TOMCAT_VERSION 8.5.15
+ENV TOMCAT_VERSION 8.0.47
 
 ENV CATALINA_HOME /usr/local/tomcat
 ENV PATH $CATALINA_HOME/bin:$PATH
@@ -111,5 +111,4 @@ RUN set -e \
 EXPOSE 8080
 
 # Define default command.
- ENTRYPOINT "startup.sh"
-
+CMD ["catalina.sh", "run"]
